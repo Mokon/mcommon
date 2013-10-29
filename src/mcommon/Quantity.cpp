@@ -27,6 +27,13 @@ namespace mcommon {
           default:
             break ;
         }
+      case INCHES: 
+        switch( to ) {
+          case INCHES:
+            return Quantity( magnitude(), to ) ;
+          default:
+            break ;
+        }
       case HOURS: 
         switch( to ) {
           case HOURS:
@@ -89,6 +96,13 @@ namespace mcommon {
           case MPM:
             return Quantity( magnitude()/60.0f, to ) ;
           case MPS:
+            return Quantity( magnitude(), to ) ;
+          default:
+            break ;
+        }
+      case LBS: 
+        switch( to ) {
+          case LBS:
             return Quantity( magnitude(), to ) ;
           default:
             break ;

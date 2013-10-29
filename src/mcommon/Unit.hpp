@@ -10,7 +10,8 @@ namespace mcommon {
   enum Unit {
     MPH, MPM, MPS,
     HOURS, MINUTES, SECONDS,
-    MILES
+    MILES, INCHES,
+    LBS,
   } ;
 
   extern const std::string unitStrings[] ;
@@ -18,7 +19,8 @@ namespace mcommon {
   #define UNIT_STRINGS { \
     "MPH", "MPM", "MPS", \
     "Hours", "Minutes", "Seconds", \
-    "Miles" \
+    "Miles", "INCHES", \
+    "LBS", \
     } 
 
 }
