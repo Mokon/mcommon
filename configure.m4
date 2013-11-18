@@ -67,6 +67,23 @@ AC_DEFUN([M_CHECK_LIB],
     [AC_MSG_WARN([$1 library not found $2_LDADD ${2}_LDADD])])
 ])
 
+
+##############################################################################
+# This macro defines a copy right string for the package. The arguments are
+# whom owns the copyright and copyright date.
+##############################################################################
+AC_DEFUN([M_COPYRIGHT_PROPRIETARY],
+[
+  AC_COPYRIGHT([Copyright (C) $2 $1])
+  AC_DEFINE([PACKAGE_COPYRIGHT],
+          ["Copyright (C) $2 $1, All Rights Reserved"],
+          [Copyright String for the Package])
+])
+
+AC_DEFUN([M_PROG_DEPS],[m4_foreach_w([lib], [$2],[M_CHECK_LIB(m4_defn([lib]),[$1])])
+  AC_SUBST([$1_LDADD])
+])
+
 ###############################################################################
 # Provide a debug flag which prevents stripping of debugging information and
 # optimizations
@@ -83,3 +100,20 @@ fi
 AC_CHECK_PROG([has_help2man],[help2man],[true],[false])
 AM_CONDITIONAL([HAS_HELP2MAN], [test x$has_help2man = xtrue])
 
+###############################################################################
+# Some misc. calls that should always be used.
+###############################################################################
+AM_INIT_AUTOMAKE([-Wall foreign])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_USE_SYSTEM_EXTENSIONS
+AC_PROG_LIBTOOL
+
+AC_CONFIG_FILES([
+  Makefile
+  object/Makefile
+  test/Makefile
+  doc/Makefile
+])

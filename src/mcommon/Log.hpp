@@ -4,6 +4,7 @@
 
 #include "config.h"
 #include <glog/logging.h>
+#include <iostream>
 
 #define CONSOLE( ) std::cout
 
