@@ -2,6 +2,9 @@
 
 #pragma once
 
+#include <string>
+#include <string.h>
+
 namespace mcommon {
 
   enum Gender {
@@ -9,6 +12,14 @@ namespace mcommon {
     Female,
     GENDER_MAX
   } ;
+
+  static inline Gender toGender( std::string str ) {
+    if( str.compare( "Male" ) == 0 ) {
+      return Male ;
+    } else {
+      return Female ;
+    }
+  } 
 
 }
 

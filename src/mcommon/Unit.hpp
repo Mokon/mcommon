@@ -8,9 +8,10 @@
 namespace mcommon {
 
   enum Unit {
+    UNKNOWN_UNIT, NONE, PERCENTAGE,
     MPH, MPM, MPS, KPH,
     YEARS, HOURS, MINUTES, SECONDS,
-    MILES, INCHES, KM,
+    MILES, INCHES, MM, CM, KM,
     LBS, KG,
     METS,
     CALORIES
@@ -19,12 +20,13 @@ namespace mcommon {
   extern const std::string unitStrings[] ;
 
   #define UNIT_STRINGS { \
-    "MPH", "MPM", "MPS", "KPH", \
+    "Unknown Unit", "", "%", \
+    "mph", "mpm", "mps", "kph", \
     "Years", "Hours", "Minutes", "Seconds", \
-    "Miles", "INCHES", "KM", \
-    "LBS", "KG", \
+    "Miles", "in", "mm", "cm", "km", \
+    "lbs", "kg", \
     "METS", \
-    "CALORIES" \
+    "calories" \
     } 
 
 }

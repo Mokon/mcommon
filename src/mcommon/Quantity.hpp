@@ -6,12 +6,15 @@
 #include <ostream>
 
 #include "mcommon/Unit.hpp"
+#include "mcommon/Value.hpp"
 
 namespace mcommon {
 
-  class Quantity {
+  class Quantity : public Value {
 
     public:
+      
+      Quantity( ) ;
 
       Quantity( const float mag, const Unit un ) ;
 
@@ -23,11 +26,15 @@ namespace mcommon {
 
       Quantity& operator+=( const Quantity& rhs ) ;
 
+      Quantity operator *( const Quantity& rhs ) ;
+      
+      Quantity operator *( const float& rhs ) ;
+
     private:
 
       std::pair<float, Unit> pair ;
 
-      friend std::ostream& operator<<( std::ostream& out, const Quantity& o ) ;
+      virtual std::ostream& out( std::ostream& o ) const ;
 
   } ; 
 

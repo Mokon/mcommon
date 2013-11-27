@@ -1,10 +1,15 @@
 /* Copyright (C) 2013 David 'Mokon' Bond,  All Rights Reserved */
 
+#include <cmath>
 #include <stdexcept>
 
 #include "mcommon/Quantity.hpp"
 
 namespace mcommon {
+
+  Quantity::Quantity( ) {
+    pair = std::make_pair( 0, UNKNOWN_UNIT ) ;
+  }
 
   Quantity::Quantity( const float mag, const Unit un ) {
     pair = std::make_pair( mag, un ) ;
@@ -45,10 +50,21 @@ namespace mcommon {
           default:
             break ;
         }
+      case CM: 
+        switch( to ) {
+          case CM:
+            return Quantity( magnitude(), to ) ;
+          case INCHES:
+            return Quantity( magnitude()/2.54, to ) ;
+          default:
+            break ;
+        }
       case INCHES: 
         switch( to ) {
           case INCHES:
             return Quantity( magnitude(), to ) ;
+          case CM:
+            return Quantity( magnitude()*2.54, to ) ;
           default:
             break ;
         }
@@ -165,8 +181,42 @@ namespace mcommon {
     return *this ;
   }
 
-  std::ostream& operator<<( std::ostream& out, const Quantity& o ) {
-    return out << o.magnitude( ) << " " << unitStrings[o.unit()] ;
+  Quantity Quantity::operator *( const Quantity& rhs ) {
+    Quantity ret(*this);
+    ret.pair.first *= rhs.convert(unit()).magnitude() ;
+    return ret ;
+  }
+
+  Quantity Quantity::operator *( const float& rhs ) {
+    Quantity ret(*this);
+    ret.pair.first *= rhs ;
+    return ret ;
+  }
+
+  std::ostream& Quantity::out( std::ostream& o ) const {
+    switch(unit()) {
+      case HOURS:
+      case MINUTES:
+      case SECONDS: {
+        Quantity s( std::round(std::fmod( convert(SECONDS).magnitude(), 60)), SECONDS) ;
+        Quantity m( std::trunc(convert(MINUTES).magnitude()), MINUTES ) ;
+        Quantity h( std::trunc(convert(HOURS).magnitude()), HOURS ) ;
+        if( h.magnitude() != 0 ) {
+          o << h.magnitude( ) << " " << unitStrings[h.unit()] << " " ;
+        }
+        if( m.magnitude() != 0 ) {
+          o << m.magnitude( ) << " " << unitStrings[m.unit()] << " " ;
+        }
+        if( s.magnitude() != 0 ) {
+          o << s.magnitude( ) << " " << unitStrings[s.unit()] ;
+        }
+        return o ;
+                    }
+      case NONE:
+        return o << magnitude( ) ;
+      default:
+        return o << magnitude( ) << " " << unitStrings[unit()] ;
+    }
   }
 
 }
