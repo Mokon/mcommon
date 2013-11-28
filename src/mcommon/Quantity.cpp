@@ -17,7 +17,7 @@ namespace mcommon {
 
   float Quantity::magnitude( ) const {
     return pair.first ;
-  } 
+  }
 
   Unit Quantity::unit( ) const {
     return pair.second ;
@@ -25,14 +25,14 @@ namespace mcommon {
 
   Quantity Quantity::convert( const Unit to ) const {
     switch( unit() ) {
-      case METS: 
+      case METS:
         switch( to ) {
           case METS:
             return Quantity( magnitude(), to ) ;
           default:
             break ;
         }
-      case MILES: 
+      case MILES:
         switch( to ) {
           case MILES:
             return Quantity( magnitude(), to ) ;
@@ -41,7 +41,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case KM: 
+      case KM:
         switch( to ) {
           case KM:
             return Quantity( magnitude(), to ) ;
@@ -50,7 +50,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case CM: 
+      case CM:
         switch( to ) {
           case CM:
             return Quantity( magnitude(), to ) ;
@@ -59,7 +59,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case INCHES: 
+      case INCHES:
         switch( to ) {
           case INCHES:
             return Quantity( magnitude(), to ) ;
@@ -68,14 +68,14 @@ namespace mcommon {
           default:
             break ;
         }
-      case YEARS: 
+      case YEARS:
         switch( to ) {
           case YEARS:
             return Quantity( magnitude(), to ) ;
           default:
             break ;
         }
-      case HOURS: 
+      case HOURS:
         switch( to ) {
           case HOURS:
             return Quantity( magnitude(), to ) ;
@@ -86,7 +86,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case MINUTES: 
+      case MINUTES:
         switch( to ) {
           case HOURS:
             return Quantity( magnitude()/60.0f, to ) ;
@@ -97,7 +97,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case SECONDS: 
+      case SECONDS:
         switch( to ) {
           case HOURS:
             return Quantity( magnitude()*3600.0f, to ) ;
@@ -108,7 +108,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case KPH: 
+      case KPH:
         switch( to ) {
           case KPH:
             return Quantity( magnitude(), to ) ;
@@ -117,7 +117,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case MPH: 
+      case MPH:
         switch( to ) {
           case MPH:
             return Quantity( magnitude(), to ) ;
@@ -130,7 +130,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case MPM: 
+      case MPM:
         switch( to ) {
           case MPH:
             return Quantity( magnitude()/60.0f, to ) ;
@@ -141,7 +141,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case MPS: 
+      case MPS:
         switch( to ) {
           case MPH:
             return Quantity( magnitude()*3600.0f, to ) ;
@@ -152,7 +152,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case LBS: 
+      case LBS:
         switch( to ) {
           case LBS:
             return Quantity( magnitude(), to ) ;
@@ -161,7 +161,7 @@ namespace mcommon {
           default:
             break ;
         }
-      case KG: 
+      case KG:
         switch( to ) {
           case KG:
             return Quantity( magnitude(), to ) ;
@@ -197,21 +197,22 @@ namespace mcommon {
     switch(unit()) {
       case HOURS:
       case MINUTES:
-      case SECONDS: {
-        Quantity s( std::round(std::fmod( convert(SECONDS).magnitude(), 60)), SECONDS) ;
-        Quantity m( std::trunc(convert(MINUTES).magnitude()), MINUTES ) ;
-        Quantity h( std::trunc(convert(HOURS).magnitude()), HOURS ) ;
-        if( h.magnitude() != 0 ) {
-          o << h.magnitude( ) << " " << unitStrings[h.unit()] << " " ;
+      case SECONDS:
+        {
+          Quantity s( std::round(std::fmod( convert(SECONDS).magnitude(), 60)), SECONDS) ;
+          Quantity m( std::trunc(convert(MINUTES).magnitude()), MINUTES ) ;
+          Quantity h( std::trunc(convert(HOURS).magnitude()), HOURS ) ;
+          if( h.magnitude() != 0 ) {
+            o << h.magnitude( ) << " " << unitStrings[h.unit()] << " " ;
+          }
+          if( m.magnitude() != 0 ) {
+            o << m.magnitude( ) << " " << unitStrings[m.unit()] << " " ;
+          }
+          if( s.magnitude() != 0 ) {
+            o << s.magnitude( ) << " " << unitStrings[s.unit()] ;
+          }
+          return o ;
         }
-        if( m.magnitude() != 0 ) {
-          o << m.magnitude( ) << " " << unitStrings[m.unit()] << " " ;
-        }
-        if( s.magnitude() != 0 ) {
-          o << s.magnitude( ) << " " << unitStrings[s.unit()] ;
-        }
-        return o ;
-                    }
       case NONE:
         return o << magnitude( ) ;
       default:

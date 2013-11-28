@@ -3,8 +3,10 @@
 #pragma once
 
 #include "config.h"
-#include <glog/logging.h>
+
 #include <iostream>
+
+#include <glog/logging.h>
 
 #define CONSOLE( ) std::cout
 

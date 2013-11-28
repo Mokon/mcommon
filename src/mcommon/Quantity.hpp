@@ -13,7 +13,7 @@ namespace mcommon {
   class Quantity : public Value {
 
     public:
-      
+
       Quantity( ) ;
 
       Quantity( const float mag, const Unit un ) ;
@@ -27,7 +27,7 @@ namespace mcommon {
       Quantity& operator+=( const Quantity& rhs ) ;
 
       Quantity operator *( const Quantity& rhs ) ;
-      
+
       Quantity operator *( const float& rhs ) ;
 
     private:
@@ -36,7 +36,7 @@ namespace mcommon {
 
       virtual std::ostream& out( std::ostream& o ) const ;
 
-  } ; 
+  } ;
 
 }
 

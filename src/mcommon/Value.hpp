@@ -24,7 +24,7 @@ namespace mcommon {
 
       virtual std::ostream& out( std::ostream& o ) const { return o ; } ;
 
-  } ; 
+  } ;
 
 }
 
