@@ -38,6 +38,19 @@ namespace mcommon {
             return Quantity( magnitude(), to ) ;
           case KM:
             return Quantity( magnitude()*1.61, to ) ;
+          case M:
+            return Quantity( magnitude()*1.61*1000, to ) ;
+          default:
+            break ;
+        }
+      case M:
+        switch( to ) {
+          case M:
+            return Quantity( magnitude(), to ) ;
+          case MILES:
+            return Quantity( magnitude()/1.61*1000, to ) ;
+          case KM:
+            return Quantity( magnitude()/1000, to ) ;
           default:
             break ;
         }
@@ -47,6 +60,8 @@ namespace mcommon {
             return Quantity( magnitude(), to ) ;
           case MILES:
             return Quantity( magnitude()/1.61, to ) ;
+          case M:
+            return Quantity( magnitude()*1000, to ) ;
           default:
             break ;
         }
@@ -200,7 +215,7 @@ namespace mcommon {
       case SECONDS:
         {
           Quantity s( std::round(std::fmod( convert(SECONDS).magnitude(), 60)), SECONDS) ;
-          Quantity m( std::trunc(convert(MINUTES).magnitude()), MINUTES ) ;
+          Quantity m( std::round(std::fmod( std::trunc(convert(MINUTES).magnitude()),60)), MINUTES ) ;
           Quantity h( std::trunc(convert(HOURS).magnitude()), HOURS ) ;
           if( h.magnitude() != 0 ) {
             o << h.magnitude( ) << " " << unitStrings[h.unit()] << " " ;
@@ -218,6 +233,10 @@ namespace mcommon {
       default:
         return o << magnitude( ) << " " << unitStrings[unit()] ;
     }
+  }
+  
+  bool Quantity::operator==( const Quantity& rhs ) const {
+    return fabs( magnitude( ) - rhs.convert(unit()).magnitude( ) ) < epsilon ;
   }
 
 }

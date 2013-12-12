@@ -30,7 +30,11 @@ namespace mcommon {
 
       Quantity operator *( const float& rhs ) ;
 
+      bool operator==( const Quantity& rhs ) const ;
+
     private:
+
+      static constexpr float epsilon = 0.1 ;
 
       std::pair<float, Unit> pair ;
 

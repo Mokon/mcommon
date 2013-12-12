@@ -17,7 +17,7 @@ namespace mcommon {
     UNKNOWN_UNIT, NONE, PERCENTAGE,
     MPH, MPM, MPS, KPH,
     YEARS, HOURS, MINUTES, SECONDS,
-    MILES, INCHES, MM, CM, KM,
+    MILES, INCHES, MM, CM, KM, M,
     LBS, KG,
     METS,
     CALORIES
@@ -55,6 +55,9 @@ namespace mcommon {
   {"MM", MM}, \
   {"cm", CM}, \
   {"CM", CM}, \
+  {"M", M}, \
+  {"m", M}, \
+  {"meters", M}, \
   {"km", KM}, \
   {"KM", KM}, \
   {"lbs", LBS}, \
@@ -77,7 +80,7 @@ namespace mcommon {
   "Unknown Unit", "", "%", \
   "mph", "mpm", "mps", "kph", \
   "Years", "Hours", "Minutes", "Seconds", \
-  "Miles", "in", "mm", "cm", "km", \
+  "Miles", "in", "mm", "cm", "km", "m", \
   "lbs", "kg", \
   "METS", \
   "calories" \
