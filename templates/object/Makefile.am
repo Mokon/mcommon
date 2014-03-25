@@ -12,5 +12,5 @@ else
 endif # DEBUG
 
 AM_CXXFLAGS += -Wall -Wextra -std=c++11 -pedantic -Werror
-AM_CXXFLAGS += -I${SRC_DIR} -I../../mcommon/src
+AM_CXXFLAGS += -I${SRC_DIR} -I../../mcommon/src -I../mcommon/src
 

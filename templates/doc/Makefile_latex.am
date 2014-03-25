@@ -1,0 +1,17 @@
+# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+%.tex: %.latex
+	cp $< $@
+
+%.dvi: %.tex
+	latex $<
+
+%.ps: %.dvi
+	dvips -Ppdf -G0 $<
+
+%.pdf: %.ps
+	ps2pdf $<
+
+clean:
+	rm -f *.pdf *.ps *.dvi *.tex *.aux *.log *.toc
+
+all: *.pdf
