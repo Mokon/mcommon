@@ -1,4 +1,4 @@
-# Copyright (C) 2013 David 'Mokon' Bond,  All Rights Reserved
+# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
 
 ###############################################################################
 # First, any configure.ac which includes this wants Python. Let's assume we have
@@ -9,7 +9,6 @@ M_DEFINE([python],[PYTHON])
 ###############################################################################
 # Now the following configures the build env. for boost python linkage.
 ###############################################################################
-if test x$python = xtrue ; then
 AM_PATH_PYTHON
 AC_ARG_VAR([PYTHON_INCLUDE],
            [Include flags for python, bypassing python-config])
@@ -43,12 +42,4 @@ AS_IF([test -z "$PYTHON_LD"], [
 
   AC_MSG_RESULT([$PYTHON_LD])
 ])
-fi
 
-###############################################################################
-# Note, you may need to include this to link to the boost python lib.
-###############################################################################
-# if test x$python = xtrue ; then
-#  M_CHECK_LIB([boost_python],[program])
-# fi
-#

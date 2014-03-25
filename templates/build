@@ -1,0 +1,11 @@
+#!/bin/sh
+# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+
+reset
+unset RM
+make clean
+make clean-purge
+./bootstrap
+./configure --disable-static --enable-shared --disable-debug --prefix=/
+make
+

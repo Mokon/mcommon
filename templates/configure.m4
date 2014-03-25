@@ -1,4 +1,4 @@
-# Copyright (C) 2013 David 'Mokon' Bond,  All Rights Reserved
+# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
 
 ###############################################################################
 # This macro allows one to quickly create a configure feature. This feature can
@@ -32,7 +32,7 @@ AC_DEFUN([M_DEFINE],
 
 ##############################################################################
 # This macro is similar to the M_DEFINE macro but it does not add anything to
-# the config.h file. This is meant for programs which need to be abled by
+# the config.h file. This is meant for programs which need to be enabled by
 # the configure script.
 ##############################################################################
 AC_DEFUN([M_PROG],
@@ -51,22 +51,24 @@ AC_DEFUN([M_PROG],
 # This macro is used to add the required library linkage into a given program.
 # Thus if you have a program called mfin which needs to link to pthread you add
 # this:
-#   M_CHECK_LIB([pthread],[mfin])
+#   M_CHECK_LIB([pthread],[mfin],[])
 # And then after you are done with any more links that need to be made to mfin
 # you add a:
 #   AC_SUBST([mfin_LDADD])
 # This forms the mfin_LDADD variable for use in the Makefiles for linkage
 # specific to the given program. This is nice if you have multiple programs
 # being built by a single project each which need seperate libs for linkage.
+# The last variable is other libs to link with.
 ##############################################################################
 AC_DEFUN([M_CHECK_LIB],
 [
+  AC_MSG_NOTICE([m check lib $1])
   AC_CHECK_LIB([$1],[main],
     [$2_LDADD="$$2_LDADD -l$1"          
       AC_DEFINE([HAVE_LIB$1], [1], [Define if you have lib$1])],
-    [AC_MSG_WARN([$1 library not found $2_LDADD ${2}_LDADD])])
+    [AC_MSG_WARN([$1 library not found $2_LDADD ${2}_LDADD])],
+    [$3])
 ])
-
 
 ##############################################################################
 # This macro defines a copy right string for the package. The arguments are
@@ -80,9 +82,17 @@ AC_DEFUN([M_COPYRIGHT_PROPRIETARY],
           [Copyright String for the Package])
 ])
 
-AC_DEFUN([M_PROG_DEPS],[m4_foreach_w([lib], [$2],[M_CHECK_LIB(m4_defn([lib]),[$1])])
+AC_DEFUN([M_PROG_DEP],[
+  AC_MSG_NOTICE([next 2 is $1 and 3 is $2])
+  M_CHECK_LIB([$1],m4_defn([prog]),[$2])])
+AC_DEFUN([M_PROG_DEPS],
+[
+  define([prog],[$1])
+  AC_MSG_NOTICE([2 is $2 and 3 is $3])
+  m4_map([M_PROG_DEP],[$2])
   AC_SUBST([$1_LDADD])
 ])
+# m4_foreach_w([lib], [$2],[M_CHECK_LIB(m4_defn([lib]),[$1])])
 
 ###############################################################################
 # Provide a debug flag which prevents stripping of debugging information and
@@ -110,6 +120,7 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_LIBTOOL
+#LC_INIT
 
 AC_CONFIG_FILES([
   Makefile
@@ -117,3 +128,4 @@ AC_CONFIG_FILES([
   test/Makefile
   doc/Makefile
 ])
+

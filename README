@@ -1,16 +1,7 @@
 Copyright (C) 2013 David 'Mokon' Bond,  All Rights Reserved
 
 This project is some common functionality used across my various projects. It
-includes:
-
-Autotools m4 scripts:
-
-    configure.m4 : Inlcude for the core mcommon configure.ac functionality.
-    python.m4 : Include to add python support to you configure.ac
-
-  Assuming you have a submodule in your git project named mcommon for this
-  project include the following in your configure.ac to use one of these m4
-  scripts:
-
-    m4_include([mcommon/configure.m4])
+includes a source library and a set of templates. The source library builds
+into a shared object that can be linked against. The templates contains various
+build files that can be symbolically linked to included as a fragment.
 
