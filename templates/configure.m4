@@ -113,7 +113,7 @@ AM_CONDITIONAL([HAS_HELP2MAN], [test x$has_help2man = xtrue])
 ###############################################################################
 # Some misc. calls that should always be used.
 ###############################################################################
-AM_INIT_AUTOMAKE([-Wall foreign])
+AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_INSTALL

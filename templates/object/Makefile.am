@@ -1,7 +1,7 @@
 # Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
 
 SRC_DIR = ../src
-AM_LIBTOOLFLAGS= --silent
+AM_LIBTOOLFLAGS = --silent
 
 if DEBUG
   AM_CXXFLAGS = -DDEBUG -g -O0 -rdynamic -fstack-protector-all -static -pg

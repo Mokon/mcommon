@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -17,7 +17,6 @@ clean-purge: clean
     .deps src/.deps client COPYING INSTALL test/Makefile.in test/Makefile \
     test/.deps doc/Makefile.in doc/Makefile confdefs.h libtool gmon.out \
     config.guess ltmain.sh config.sub object/.deps object/Makefile.in \
-		object/Makefile test-driver m4/*
+		object/Makefile test-driver m4/* compile src/.dirstat m4
 
 .PHONY: clean-purge
-
