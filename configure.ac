@@ -1,16 +1,15 @@
-# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
 
 AC_INIT([Mokon Common Library],[DEV-VERSION],[mokon@mokon.net],[mcommon],
-                [http://mokon.net])
+        [http://mokon.net])
 
 m4_include([templates/configure.m4])
 m4_include([templates/configure_cpp.m4])
 
 AC_REVISION([$Revision: 0.0 $])
-M_COPYRIGHT_PROPRIETARY([David 'Mokon' Bond],[2013-2014])
+M_COPYRIGHT_PROPRIETARY([David 'Mokon' Bond],[2013-2015])
 
 M_PROG_DEPS([mcommon],[
-                     [[glog],[]]
-                   ])
+             [[glog],[]]
+             ])
 AC_OUTPUT
-

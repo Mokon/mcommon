@@ -1,80 +1,89 @@
-/* Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/function.hpp>
+#include <functional>
 
 namespace mcommon {
 
-  class Timer {
+class Timer
+{
 
-    public:
+  public:
 
-      /* Constructs a timer not running. */
-      Timer( ) ;
+    /* Constructs a timer not running. */
+    Timer();
 
-      /* Destructs the timer. */
-      virtual ~Timer( ) ;
+    /* Destructs the timer. */
+    virtual ~Timer();
 
-      /* Starts the timer running for the given amount of time and an unlimited
-       * number of times. */
-      void start( int milliseconds ) ;
+    Timer(const Timer&) = delete;
 
-      /* Starts the timer running for the given amount of time and count times. */
-      void start( int milliseconds, unsigned int count ) ;
+    Timer& operator=(const Timer&) = delete;
 
-      /* Connects a callback function pointer. */
-      void connect( boost::function<void()> fp ) ;
+    Timer(Timer&&) = delete;
 
-      /* Calls the callback function pointer. */
-      void callback( ) ;
+    Timer& operator=(Timer&&) = delete;
 
-      /* Stops the currently running timer. */
-      void stop( ) ;
+    /* Starts the timer running for the given amount of time and an unlimited
+     * number of times. */
+    void start(int milliseconds);
 
-      /* A static timer loop that runs all timers. */
-      static int run( ) ;
+    /* Starts the timer running for the given amount of time and count times. */
+    void start(int milliseconds, unsigned int count);
 
-      /* Stops the timer loop. */
-      static void stopRun( const boost::system::error_code& ec, int sig ) ;
+    /* Connects a callback function pointer. */
+    void connect(const std::function<void()>& fp);
 
-      /* Adds a signal handler to the signals. */
-      static void addSignalHandler( std::function<void(
-            const boost::system::error_code& ec, int signal_number)> handler ) ;
+    /* Calls the callback function pointer. */
+    void callback();
 
-    private:
+    /* Stops the currently running timer. */
+    void stop();
 
-      /* TODO we should really not have this be a global service */
-      /* An io_service for the timer class. */
-      static boost::asio::io_service io ;
+    /* A static timer loop that runs all timers. */
+    static int run();
 
-      /* The underlying timer implementation. */
-      boost::asio::deadline_timer timer ;
+    /* Stops the timer loop. */
+    static void stopRun(const boost::system::error_code& ec, int sig);
 
-      /* The function pointer to be called on timer expiration. */
-      boost::function<void()> fp ;
+    /* Adds a signal handler to the signals. */
+    static void addSignalHandler(std::function<void(
+                                                    const boost::system::error_code& ec,
+                                                    int signal_number)> handler);
 
-      /* Whether when start is called the callback will be called and unlimited
-       * number of times or a limited number of times. */
-      bool unlimited ;
+  private:
 
-      /* If unlimited == false then this value equals the number of times
-       * remaining to call the callback on timeout. */
-      unsigned int count ;
+    /* TODO we should really not have this be a global service */
+    /* An io_service for the timer class. */
+    static boost::asio::io_service io;
 
-      /* The number of milliseconds for the current timer. */
-      int milliseconds ;
+    /* The underlying timer implementation. */
+    boost::asio::deadline_timer timer;
 
-      /* A boolean flag on whether the ioservice should be running. */
-      static bool running ;
+    /* The function pointer to be called on timer expiration. */
+    std::function<void()> fp;
 
-      /* signal set for sigint and sigterm */
-      static boost::asio::signal_set sigs ;
+    /* Whether when start is called the callback will be called and unlimited
+     * number of times or a limited number of times. */
+    bool unlimited;
 
-  } ;
+    /* If unlimited == false then this value equals the number of times
+     * remaining to call the callback on timeout. */
+    unsigned int count;
+
+    /* The number of milliseconds for the current timer. */
+    int milliseconds;
+
+    /* A boolean flag on whether the ioservice should be running. */
+    static bool running;
+
+    /* signal set for sigint and sigterm */
+    static boost::asio::signal_set sigs;
+
+};
 
 }
-

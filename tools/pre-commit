@@ -1,0 +1,52 @@
+#!/bin/bash
+# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
+FILES=`find ./src -name "*.[hc]pp"`
+
+function fail {
+    local message=$1
+    local output=$2
+
+    FAILURES+=("$message: $FILE:$output")
+    echo -en "failed $output"
+}
+
+function testcase {
+    local message=$1
+    local check=$2
+    local expected=$3
+
+    echo -ne "\tchecking for $message... "
+    output=$(grep -Pn "$check" $FILE ; exit $?)
+    result=$?
+    if [ $result -eq $expected ]; then
+        fail "$message" "$output"
+    fi
+    echo
+}
+
+FAILURES=()
+for FILE in $FILES ; do
+    echo "pre-commit check on $FILE:"
+    if [[ "$FILE" =~ \.[ch]p?p?$ ]] ; then
+        if [ -f $FILE ]; then
+            testcase "const rvalue references" "const\ ([a-zA-Z_][a-zA-Z0-9_]+)&&" 0
+            testcase "space around paren" "(\(\ )|(\ \))" 0
+            testcase "space before semi-colon" "\ ;" 0
+            testcase "logical or" "\|\|" 0
+            testcase "copyright header" "/\*\ Copyright\ \(C\)\ 2013-2015\ David\ 'Mokon'\ Bond,\ All\ Rights\ Reserved\ \*/" 1
+            testcase "includes using quotes" '#include\ "' 0
+            cppcheck --suppress=missingIncludeSystem --enable=all $FILE | sed 's/^/\tcppcheck: /'
+        else
+            echo "file no longer exists"
+        fi
+    fi
+done
+
+if [ ${#FAILURES[@]} -ne 0 ]; then
+    echo -ne "\nTest Result Failures\n\n"
+    for FAILURE in "${FAILURES[@]}" ; do
+        echo "$FAILURE"
+    done
+
+    exit -1
+fi

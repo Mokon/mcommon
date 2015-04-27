@@ -1,16 +1,19 @@
-/* Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
-#include "config.h"
-
+#include <assert.h>
+#include <config.h>
 #include <iostream>
-
 #include <glog/logging.h>
 
-#define CONSOLE( ) std::cout
+namespace mcommon {
 
-#define DEBUG_LOG_IF( ... ) __extension__ VLOG_IF( __VA_ARGS__ )
+namespace log {
+
+#define CONSOLE() std::cout
+
+#define DEBUG_LOG_IF(...) __extension__ VLOG_IF(__VA_ARGS__)
 
 #define DEBUG_LOG_TRACE_V 1
 #define DEBUG_LOG_TRACE_VV 2
@@ -18,3 +21,14 @@
 #define DEBUG_LOG_TRACE_VVVV 4
 #define DEBUG_LOG_TRACE_VVVVV 5
 
+static inline void init(int argc, char* argv[])
+{
+    assert(argc);
+    google::InitGoogleLogging(argv[0]);
+    google::InstallFailureSignalHandler();
+    google::SetStderrLogging(google::INFO);
+}
+
+}
+
+}

@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
 
 ###############################################################################
 # This macro allows one to quickly create a configure feature. This feature can
@@ -62,7 +62,6 @@ AC_DEFUN([M_PROG],
 ##############################################################################
 AC_DEFUN([M_CHECK_LIB],
 [
-  AC_MSG_NOTICE([m check lib $1])
   AC_CHECK_LIB([$1],[main],
     [$2_LDADD="$$2_LDADD -l$1"          
       AC_DEFINE([HAVE_LIB$1], [1], [Define if you have lib$1])],
@@ -79,16 +78,14 @@ AC_DEFUN([M_COPYRIGHT_PROPRIETARY],
   AC_COPYRIGHT([Copyright (C) $2 $1])
   AC_DEFINE([PACKAGE_COPYRIGHT],
           ["Copyright (C) $2 $1, All Rights Reserved"],
-          [Copyright String for the Package])
+          [Copyright string for the package])
 ])
 
 AC_DEFUN([M_PROG_DEP],[
-  AC_MSG_NOTICE([next 2 is $1 and 3 is $2])
   M_CHECK_LIB([$1],m4_defn([prog]),[$2])])
 AC_DEFUN([M_PROG_DEPS],
 [
   define([prog],[$1])
-  AC_MSG_NOTICE([2 is $2 and 3 is $3])
   m4_map([M_PROG_DEP],[$2])
   AC_SUBST([$1_LDADD])
 ])
@@ -113,9 +110,10 @@ AM_CONDITIONAL([HAS_HELP2MAN], [test x$has_help2man = xtrue])
 ###############################################################################
 # Some misc. calls that should always be used.
 ###############################################################################
-AM_INIT_AUTOMAKE([-Wall foreign subdir-objects])
+AM_INIT_AUTOMAKE([-Wall foreign]) #subdir-objects])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
+AM_PROG_AR
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_USE_SYSTEM_EXTENSIONS
@@ -128,4 +126,3 @@ AC_CONFIG_FILES([
   test/Makefile
   doc/Makefile
 ])
-

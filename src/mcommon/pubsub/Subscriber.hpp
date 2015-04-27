@@ -1,30 +1,31 @@
-/* Copyright (C) 2012-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2012-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
 #include <mcommon/pubsub/Publisher.hpp>
 
-/*
- * A publisher subscriber implementation.
- */
 namespace mcommon {
 
-  template <class Subscription> class Subscriber {
+template <class Subscription> class Subscriber
+{
 
-    public:
+  public:
 
-      Subscriber( ) = default ;
+    Subscriber() = default;
 
-      virtual ~Subscriber( ) = default ;
-      
-      ~Subscriber( const ~Subscriber& ) = default ;
+    virtual ~Subscriber() = default;
 
-      ~Subscriber& operator=( const ~Subscriber& ) = default ;
+    Subscriber(const Subscriber&) = default;
 
-      virtual void consume( std::shared_ptr<Publisher<Subscription> > p,
-          std::shared_ptr<Subscription> s ) = 0 ;
+    Subscriber& operator=(const Subscriber&) = default;
 
-  } ;
+    Subscriber(Subscriber&&) = default;
+
+    Subscriber& operator=(Subscriber&&) = default;
+
+    virtual void consume(const std::shared_ptr<Publisher<Subscription>>& p,
+                         const std::shared_ptr<Subscription>& s) = 0;
+
+};
 
 }
-

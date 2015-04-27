@@ -1,28 +1,26 @@
-/* Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
 #include <iostream>
+#include <mcommon/Exception.hpp>
 #include <string>
 #include <string.h>
 
-#include "mcommon/Exception.hpp"
-
 namespace mcommon {
-  
-  DEFINE_EXCEPTION_CLASS( UnknownGenderException ) ;
 
-  enum Gender {
+DEFINE_EXCEPTION_CLASS(UnknownGenderException);
+
+enum Gender {
     Male,
     Female,
     GENDER_MAX
-  } ;
+};
 
-  std::ostream& operator<<( std::ostream& os, const Gender& g ) ;
+std::ostream& operator<<(std::ostream& os, const Gender& g);
 
-  std::istream& operator>>( std::istream& is, Gender& g ) ;
+std::istream& operator>>(std::istream& is, Gender& g);
 
-  Gender toGender( std::string str ) ;
+Gender toGender(const std::string& str);
 
 }
-

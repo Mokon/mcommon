@@ -11,12 +11,13 @@ AM_COLOR_TESTS=always
 
 clean-purge: clean
 	rm -rf \
- 	  aclocal.m4 autom4te.cache  config.h config.h.in  config.h.in~ \
+ 	aclocal.m4 autom4te.cache  config.h config.h.in  config.h.in~ \
     config.log config.status  configure  install-sh Makefile \
     Makefile.in  missing stamp-h1 src/Makefile.in src/Makefile depcomp \
     .deps src/.deps client COPYING INSTALL test/Makefile.in test/Makefile \
     test/.deps doc/Makefile.in doc/Makefile confdefs.h libtool gmon.out \
     config.guess ltmain.sh config.sub object/.deps object/Makefile.in \
-		object/Makefile test-driver m4/* compile src/.dirstat m4
+	object/Makefile test-driver m4/* compile outfile*.csv ar-lib m4 \
+	src/.dirstat
 
 .PHONY: clean-purge

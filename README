@@ -1,7 +1,6 @@
-Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
 
 This project is some common functionality used across my various projects. It
 includes a source library and a set of templates. The source library builds
 into a shared object that can be linked against. The templates contains various
 build files that can be symbolically linked to included as a fragment.
-

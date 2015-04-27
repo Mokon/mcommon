@@ -1,30 +1,36 @@
-/* Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
+#include <mcommon/Displayable.hpp>
+
 namespace mcommon {
 
-  class Value {
+class Value
+    : public Displayable
+{
 
-    public:
+  public:
 
-      Value( ) = default ;
+    Value() = default;
 
-      virtual ~Value( ) = default ;
+    virtual ~Value() = default;
 
-      Value( const Value& ) = default ;
+    Value(const Value&) = default;
 
-      Value& operator=( const Value& ) = default ;
+    Value& operator=(const Value&) = default;
 
-      friend std::ostream& operator<<( std::ostream& o, const Value& v ) {
-        return v.out( o ) ;
-      }
+    Value(Value&&) = delete;
 
-    private:
+    Value& operator=(Value&&) = delete;
 
-      virtual std::ostream& out( std::ostream& o ) const { return o ; } ;
+  protected:
 
-  } ;
+    virtual std::ostream& out(std::ostream& o) const override
+    {
+        return o;
+    }
+
+};
 
 }
-

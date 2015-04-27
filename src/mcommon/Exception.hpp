@@ -1,4 +1,4 @@
-/* Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
@@ -6,12 +6,13 @@
 
 namespace mcommon {
 
-#define DEFINE_EXCEPTION_CLASS( Name ) \
-  class Name : public std::runtime_error { \
-    public: \
-            Name ( const std::string& err ) : runtime_error(err) { \
-            } \
-  }
-
+#define DEFINE_EXCEPTION_CLASS(ClassName) \
+class ClassName : public std::runtime_error { \
+  public: \
+    ClassName (const std::string& err) \
+        : runtime_error(err) \
+    { \
+    } \
 }
 
+}

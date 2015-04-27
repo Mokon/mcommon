@@ -1,4 +1,4 @@
-/* Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
@@ -6,28 +6,39 @@
 
 namespace mcommon {
 
-  typedef std::string Id ;
+using Id = std::string;
 
-  class Idable {
+class Idable
+{
 
-    public:
+  public:
 
-      Idable( const Id id ) : id(id) {
-      } ;
+    Idable(const Id& id)
+        : id(id)
+    {
+    }
 
-      Idable( ) = delete ;
+    Idable() = delete;
 
-      virtual ~Idable( ) = default ;
+    virtual ~Idable() = default;
 
-      Idable( const Idable& ) = default ;
+    Idable(const Idable&) = default;
 
-      Idable& operator=( const Idable& ) = default ;
+    Idable& operator=(const Idable&) = default;
 
-    private :
+    Idable(Idable&&) = default;
 
-      const Id id ;
+    Idable& operator=(Idable&&) = default;
 
-  } ;
+    const Id getId() const
+    {
+        return id;
+    }
+
+  private:
+
+    const Id id;
+
+};
 
 }
-

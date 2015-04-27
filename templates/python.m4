@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
 
 ###############################################################################
 # First, any configure.ac which includes this wants Python. Let's assume we have
@@ -42,4 +42,3 @@ AS_IF([test -z "$PYTHON_LD"], [
 
   AC_MSG_RESULT([$PYTHON_LD])
 ])
-

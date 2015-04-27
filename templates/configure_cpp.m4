@@ -1,6 +1,5 @@
-# Copyright (C) 2013-2014 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
 
 AC_LANG([C++])
 : ${CXXFLAGS=""}
-AC_PROG_CXX #([g++, clang++])
-
+AC_PROG_CXX ([clang++])
