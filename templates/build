@@ -1,10 +1,54 @@
 #!/bin/sh
-# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
+
+OPTS=`getopt -o hbdri -l help,debug,rebuild,debug,release,install -- "$@"`
+
+if [ $? != 0 ] ; then
+  echo error
+  exit -1
+fi
+
+eval set -- "$OPTS"
+
+if [ -f Makefile ] ; then
+    REBUILD=0
+else
+    REBUILD=1
+fi
+DEBUG=1
+INSTALL=0
+
+while true ; do
+  case "$1" in
+  -h|--help|--usage|\?) echo "usage" && exit 0 ;;
+  -b|--rebuild) REBUILD=1 ; shift ;;
+  -d|--debug) DEBUG=1 ; shift ;;
+  -r|--release) DEBUG=0 ; shift ;;
+  -i|--install) INSTALL=0 ; shift ;;
+  --) shift ; break ;;
+  *) echo error; exit 1;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+[ "$1" = "--" ] && shift
 
 reset
-unset RM
-make clean
-make clean-purge
-./bootstrap
-./configure --disable-static --enable-shared --disable-debug --prefix=/
+if [ $REBUILD -ne 0 ] ; then
+    if [ -f configure ] ; then
+        make clean-purge
+    fi
+    ./bootstrap
+    if [ $DEBUG -ne 0 ] ; then
+        ./configure --disable-static --enable-shared --enable-debug --prefix=/
+    else
+        ./configure --disable-static --enable-shared --disable-debug --prefix=/
+    fi
+fi
+
 make
+
+if [ $INSTALL -ne 0 ] ; then
+    sudo make install
+fi

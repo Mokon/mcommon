@@ -1,4 +1,4 @@
-/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
@@ -6,6 +6,7 @@
 #include <boost/bind.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <functional>
+#include <thread>
 
 namespace mcommon {
 
@@ -50,16 +51,20 @@ class Timer
     /* Stops the timer loop. */
     static void stopRun(const boost::system::error_code& ec, int sig);
 
+    /* Stops the timer loop. */
+    static void stopRun( ) ;
+
+    /* Joins the timer loop. */
+    static void join( ) ;
+
+    /* Starts the timer loop. */
+    static void startRun( ) ;
+
     /* Adds a signal handler to the signals. */
-    static void addSignalHandler(std::function<void(
-                                                    const boost::system::error_code& ec,
-                                                    int signal_number)> handler);
+    static void addSignalHandler(std::function<
+        void(const boost::system::error_code& ec, int signal_number)> handler);
 
   private:
-
-    /* TODO we should really not have this be a global service */
-    /* An io_service for the timer class. */
-    static boost::asio::io_service io;
 
     /* The underlying timer implementation. */
     boost::asio::deadline_timer timer;
@@ -78,11 +83,18 @@ class Timer
     /* The number of milliseconds for the current timer. */
     int milliseconds;
 
+    /* TODO we should really not have this be a global service */
+    /* An io_service for the timer class. */
+    static boost::asio::io_service io;
+
     /* A boolean flag on whether the ioservice should be running. */
     static bool running;
 
     /* signal set for sigint and sigterm */
     static boost::asio::signal_set sigs;
+
+    /* A thread controlling all the timers. */
+    static std::thread timers ;
 
 };
 

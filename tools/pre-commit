@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
 FILES=`find ./src -name "*.[hc]pp"`
 
 function fail {
@@ -33,7 +33,7 @@ for FILE in $FILES ; do
             testcase "space around paren" "(\(\ )|(\ \))" 0
             testcase "space before semi-colon" "\ ;" 0
             testcase "logical or" "\|\|" 0
-            testcase "copyright header" "/\*\ Copyright\ \(C\)\ 2013-2015\ David\ 'Mokon'\ Bond,\ All\ Rights\ Reserved\ \*/" 1
+            testcase "copyright header" "/\*\ Copyright\ \(C\)\ 2013-2016\ David\ 'Mokon'\ Bond,\ All\ Rights\ Reserved\ \*/" 1
             testcase "includes using quotes" '#include\ "' 0
             cppcheck --suppress=missingIncludeSystem --enable=all $FILE | sed 's/^/\tcppcheck: /'
         else
@@ -49,4 +49,6 @@ if [ ${#FAILURES[@]} -ne 0 ]; then
     done
 
     exit -1
+else
+    echo "pre-commit pass"
 fi

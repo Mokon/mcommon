@@ -1,4 +1,4 @@
-/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved */
 
 #include <boost/asio/signal_set.hpp>
 #include <mcommon/Log.hpp>
@@ -26,7 +26,7 @@ void Timer::start(int ms)
     this->milliseconds = ms;
     count = 0;
     timer.expires_from_now(boost::posix_time::millisec(ms));
-    timer.async_wait(boost::bind(&Timer::callback, this));
+    timer.async_wait(std::bind(&Timer::callback, this));
 }
 
 void Timer::start(int ms, unsigned int cnt)
@@ -35,7 +35,7 @@ void Timer::start(int ms, unsigned int cnt)
     this->milliseconds = ms;
     this->count = cnt;
     timer.expires_from_now(boost::posix_time::millisec(ms));
-    timer.async_wait(boost::bind(&Timer::callback, this));
+    timer.async_wait(std::bind(&Timer::callback, this));
 }
 
 void Timer::connect(const std::function<void()>& f)
@@ -51,7 +51,7 @@ void Timer::callback()
 
     if(unlimited or --count > 0) {
         timer.expires_from_now(boost::posix_time::millisec(milliseconds));
-        timer.async_wait(boost::bind(&Timer::callback, this));
+        timer.async_wait(std::bind(&Timer::callback, this));
     }
 }
 
@@ -62,6 +62,7 @@ void Timer::stop()
 
 int Timer::run()
 {
+
     running = true;
     while(running) {
         io.run();
@@ -73,8 +74,23 @@ void Timer::stopRun(const boost::system::error_code& ec, int sig)
 {
     boost::ignore_unused_variable_warning(ec);
     boost::ignore_unused_variable_warning(sig);
+    Timer::stopRun();
+}
+
+void Timer::stopRun()
+{
     running = false;
     io.stop();
+}
+
+void Timer::join()
+{
+    timers.join();
+}
+
+void Timer::startRun()
+{
+    timers = std::thread(&run);
 }
 
 boost::asio::io_service Timer::io;
@@ -89,5 +105,7 @@ void Timer::addSignalHandler(std::function<void(
 {
     sigs.async_wait(handler);
 }
+
+std::thread Timer::timers;
 
 }

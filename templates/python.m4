@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
 
 ###############################################################################
 # First, any configure.ac which includes this wants Python. Let's assume we have

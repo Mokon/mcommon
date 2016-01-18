@@ -1,7 +1,10 @@
-/* Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
+#include <cereal/archives/json.hpp>
+#include <cereal/access.hpp>
+#include <cereal/types/polymorphic.hpp>
 #include <string>
 
 namespace mcommon {
@@ -10,12 +13,11 @@ using Id = std::string;
 
 class Idable
 {
-
   public:
 
-    Idable(const Id& id)
-        : id(id)
-    {
+    Idable(const Id& i)
+        : id(i)
+    {  
     }
 
     Idable() = delete;
@@ -37,7 +39,22 @@ class Idable
 
   private:
 
-    const Id id;
+    Id id;
+    
+    template<class Archive> void serialize(Archive& archive)
+    {
+        archive(cereal::make_nvp("id", id));
+    }
+
+    template<class Archive> static void load_and_construct(Archive& ar,
+                                                           cereal::construct<mcommon::Idable>& construct)
+    {
+        mcommon::Id id;
+        ar(id);
+        construct(id);
+    }
+
+    friend class cereal::access;
 
 };
 

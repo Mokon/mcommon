@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
 
 ###############################################################################
 # This macro allows one to quickly create a configure feature. This feature can

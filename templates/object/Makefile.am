@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2015 David 'Mokon' Bond, All Rights Reserved
+# Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
 
 SRC_DIR = ../src
 AM_LIBTOOLFLAGS = --silent
@@ -21,4 +21,5 @@ AM_CXXFLAGS += -Wunused-parameter -Wunused
 AM_CXXFLAGS += -Wchar-subscripts -Wcomment -Winit-self
 AM_CXXFLAGS += -Wtrampolines -Wlogical-op -Wmissing-declarations
 AM_CXXFLAGS += -Wmissing-field-initializers -Wparentheses -Wformat=2
+AM_CXXFLAGS += -fext-numeric-literals
 AM_CXXFLAGS += -I${SRC_DIR} -I../../mcommon/src -I../mcommon/src
