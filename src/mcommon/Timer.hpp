@@ -52,13 +52,13 @@ class Timer
     static void stopRun(const boost::system::error_code& ec, int sig);
 
     /* Stops the timer loop. */
-    static void stopRun( ) ;
+    static void stopRun();
 
     /* Joins the timer loop. */
-    static void join( ) ;
+    static void join();
 
     /* Starts the timer loop. */
-    static void startRun( ) ;
+    static void startRun();
 
     /* Adds a signal handler to the signals. */
     static void addSignalHandler(std::function<
@@ -94,7 +94,7 @@ class Timer
     static boost::asio::signal_set sigs;
 
     /* A thread controlling all the timers. */
-    static std::thread timers ;
+    static std::thread timers;
 
 };
 

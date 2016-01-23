@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2016 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved */
 
 #pragma once
 
@@ -15,11 +15,11 @@ template <class Subscription> class Subscriber
 
     virtual ~Subscriber() = default;
 
-    Subscriber(const Subscriber&) = default;
+    explicit Subscriber(const Subscriber&) = default;
 
     Subscriber& operator=(const Subscriber&) = default;
 
-    Subscriber(Subscriber&&) = default;
+    explicit Subscriber(Subscriber&&) = default;
 
     Subscriber& operator=(Subscriber&&) = default;
 

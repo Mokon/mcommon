@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2016 David 'Mokon' Bond, All Rights Reserved */
+/* Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved */
 
 #include <config.h>
 #include <functional>
@@ -28,7 +28,7 @@ Daemon::Daemon(int argc, char* argv[])
     }
 }
 
-Daemon::~Daemon( )
+Daemon::~Daemon()
 {
 }
 
@@ -71,7 +71,7 @@ void Daemon::join()
     changeState(stopping, stopped);
 }
 
-int Daemon::getStatus()
+int Daemon::getStatus() const
 {
     return status;
 }
@@ -92,7 +92,7 @@ void Daemon::exec()
 }
 
 bool
-Daemon::isStopping()
+Daemon::isStopping() const
 {
   return state == stopping;
 }

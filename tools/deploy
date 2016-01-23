@@ -1,0 +1,15 @@
+#!/bin/bash
+# Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
+
+if [ -L .git/hooks/pre-commit ] ; then
+    link=$(readlink -f .git/hooks/pre-commit)
+    if [ "$link " != '../../tools/hooks/pre-commit' ] ; then
+        echo "unknown pre-commit symlink exists"
+        exit -1
+    fi
+elif [ -e .git/hooks/pre-commit ] ; then
+    echo "unknown pre-commit script exists"
+    exit -1
+else
+    ln -s ../../tools/hooks/pre-commit .git/hooks/pre-commit
+fi

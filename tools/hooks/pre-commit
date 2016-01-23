@@ -64,7 +64,13 @@ function cppcheck_static_analyzer {
 
     echo -ne "\tchecking for cppcheck errors...\n"
     touch $root/tools/suppressions/cppcheck.supp
-    cppcheck -q -I mcommon/src -I src \
+
+    local includes="-I src"
+    if [ -d mcommon/src ] ; then
+      includes="$includes -I mcommon/src"
+    fi
+
+    cppcheck -q $includes \
              --inconclusive --std=c++11 --language=c++ \
              --suppressions-list=$root/tools/suppressions/cppcheck.supp \
              --suppress=missingIncludeSystem --enable=all \
@@ -144,7 +150,6 @@ function is_git_controlled {
 function is_commit_ammend {
     local amend_re='.*commit.*--amend'
     local cmd=`ps -ocommand= -p $PPID`
-    cmd="git commit --amend"
     if [[ "$cmd" =~ $amend_re ]] ; then
         return 0
     else

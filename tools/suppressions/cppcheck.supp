@@ -1,0 +1,14 @@
+unusedFunction:src/mcommon/daemon/*Daemon.cpp:79
+unusedFunction:src/mcommon/daemon/*Daemon.cpp:84
+unusedFunction:src/mcommon/daemon/*Daemon.cpp:95
+unusedFunction:src/mcommon/*Idable.hpp:35
+unusedFunction:src/mcommon/*Idable.hpp:49
+unusedFunction:src/mcommon/*Log.hpp:24
+unusedFunction:src/mcommon/pubsub/*Publisher.hpp:30
+unusedFunction:src/mcommon/pubsub/*Publisher.hpp:35
+unusedFunction:src/mcommon/pubsub/*Publisher.hpp:40
+unusedFunction:src/mcommon/pubsub/*Publisher.hpp:49
+unusedFunction:src/mcommon/*Timer.cpp:102
+unusedFunction:src/mcommon/*Timer.cpp:23
+unusedFunction:src/mcommon/*Timer.cpp:41
+unusedFunction:src/mcommon/*Timer.cpp:91

@@ -48,13 +48,13 @@ class Daemon
 
     void exec();
 
-    int getStatus();
+    int getStatus() const;
 
     void setStatus(int newStatus);
 
     void changeState(State expectedState, State newState);
 
-    bool isStopping();
+    bool isStopping() const;
 
   private:
 
