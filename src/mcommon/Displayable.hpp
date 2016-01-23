@@ -15,11 +15,11 @@ class Displayable
 
     virtual ~Displayable() = default;
 
-    Displayable(Displayable&&) = default;
+    explicit Displayable(Displayable&&) = default;
 
     Displayable& operator=(Displayable&&) = default;
 
-    Displayable(const Displayable&) = default;
+    explicit Displayable(const Displayable&) = default;
 
     Displayable& operator=(const Displayable&) = default;
 

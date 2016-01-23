@@ -9,7 +9,7 @@ TESTS = test/*.test
 XFAIL_TESTS =
 AM_COLOR_TESTS=always
 
-clean-purge: clean
+clean-purge: clean distclean
 	/bin/rm -rf \
  	aclocal.m4 autom4te.cache  config.h config.h.in  config.h.in~ \
   config.log config.status  configure  install-sh Makefile \
@@ -19,5 +19,7 @@ clean-purge: clean
   config.guess ltmain.sh config.sub object/.deps object/Makefile.in \
 	object/Makefile test-driver m4/* compile outfile*.csv ar-lib m4 \
 	src/.dirstat
+	find .  -not -path "*.git*" -and -not -path "*mcommon*" -and \
+		\( -name .deps -or -name .dirstamp \) -exec /bin/rm -rf {} \;
 
 .PHONY: clean-purge

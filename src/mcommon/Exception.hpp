@@ -9,7 +9,7 @@ namespace mcommon {
 #define DEFINE_EXCEPTION_CLASS(ClassName) \
 class ClassName : public std::runtime_error { \
   public: \
-    ClassName (const std::string& err) \
+    explicit ClassName (const std::string& err) \
         : runtime_error(err) \
     { \
     } \

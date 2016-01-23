@@ -15,7 +15,7 @@ class Idable
 {
   public:
 
-    Idable(const Id& i)
+    explicit Idable(const Id& i)
         : id(i)
     {  
     }
