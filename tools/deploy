@@ -1,15 +1,22 @@
 #!/bin/bash
 # Copyright (C) 2013-2016 David 'Mokon' Bond, All Rights Reserved
 
-if [ -L .git/hooks/pre-commit ] ; then
-    link=$(readlink -f .git/hooks/pre-commit)
-    if [ "$link " != '../../tools/hooks/pre-commit' ] ; then
-        echo "unknown pre-commit symlink exists"
+function deploy_hook {
+    local hook=$1
+
+    if [ -L .git/hooks/$hook ] ; then
+        link=$(readlink -f .git/hooks/$hook)
+        if [ "$link " != "../../tools/hooks/$hook" ] ; then
+            echo "unknown $hook symlink exists"
+            exit -1
+        fi
+    elif [ -e .git/hooks/$hook ] ; then
+        echo "unknown $hook script exists"
         exit -1
+    else
+        ln -s ../../tools/hooks/$hook .git/hooks/$hook
     fi
-elif [ -e .git/hooks/pre-commit ] ; then
-    echo "unknown pre-commit script exists"
-    exit -1
-else
-    ln -s ../../tools/hooks/pre-commit .git/hooks/pre-commit
-fi
+}
+
+deploy_hook pre-commit
+deploy_hook commit-msg
